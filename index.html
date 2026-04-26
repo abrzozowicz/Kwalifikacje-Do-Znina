@@ -3,202 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Score |Kwalifikacje do Turniej Reprezentantów - Żnin  </title>
+    <title>Tournament Dashboard | Podium Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0f172a;
-            --card: #1e293b;
-            --text: #f8fafc;
+            --bg-gradient: radial-gradient(circle at top left, #1e293b, #0f172a);
+            --glass-bg: rgba(30, 41, 59, 0.7);
             --accent: #38bdf8;
-            --border: #334155;
-            --green: #22c55e;
-            --red: #ef4444;
+            --text-bright: #ffffff;
+            --text-dim: #94a3b8;
+            --success: #10b981;
+            
+            /* Kolory Podium */
+            --gold: linear-gradient(90deg, #f59e0b, #fbbf24);
+            --silver: linear-gradient(90deg, #94a3b8, #cbd5e1);
+            --bronze: linear-gradient(90deg, #b45309, #d97706);
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-bright);
             margin: 0;
-            padding: 10px;
+            padding: 20px;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        h1 {
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 1.5rem;
-            margin: 20px 0;
-        }
+        .header { text-align: center; margin-bottom: 40px; }
+        h1 { font-size: 2.5rem; font-weight: 800; margin: 0; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
 
-        .table-container {
+        .main-card {
             width: 100%;
-            max-width: 900px;
-            background: var(--card);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        th {
-            background-color: #0ea5e9;
-            color: white;
-            padding: 12px 15px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-        }
-
-        td {
-            padding: 12px 15px;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.95rem;
-        }
-
-        tr:nth-child(even) { background-color: rgba(255,255,255,0.03); }
-        tr:hover { background-color: rgba(56, 189, 248, 0.1); }
-
-        .status-bar {
-            width: 100%;
-            max-width: 900px;
-            margin-top: 10px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: #94a3b8;
-        }
-
-        #loading-overlay {
-            padding: 40px;
-            text-align: center;
-            color: var(--accent);
-        }
-
-        #error-display {
-            display: none;
+            max-width: 1000px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
             padding: 20px;
-            color: var(--red);
-            text-align: center;
-            font-weight: bold;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
+
+        table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
+        th { padding: 15px 20px; color: var(--text-dim); font-size: 0.75rem; text-transform: uppercase; text-align: left; }
+        td { padding: 18px 20px; background: rgba(255, 255, 255, 0.03); font-size: 1.1rem; transition: transform 0.2s; }
+
+        /* ZAOKRĄGLENIA WIERSZY */
+        td:first-child { border-radius: 12px 0 0 12px; font-weight: 800; }
+        td:last-child { border-radius: 0 12px 12px 0; text-align: right; }
+
+        /* --- PODIUM --- */
+        
+        /* 1. MIEJSCE - ZŁOTO */
+        tbody tr:nth-child(1) td {
+            background: var(--gold);
+            color: #451a03; /* Ciemny napis dla kontrastu */
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+        }
+
+        /* 2. MIEJSCE - SREBRO */
+        tbody tr:nth-child(2) td {
+            background: var(--silver);
+            color: #1e293b;
+            box-shadow: 0 0 15px rgba(148, 163, 184, 0.2);
+        }
+
+        /* 3. MIEJSCE - BRĄZ */
+        tbody tr:nth-child(3) td {
+            background: var(--bronze);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(180, 83, 9, 0.2);
+        }
+
+        /* Efekt hover dla reszty stawki */
+        tbody tr:nth-child(n+4):hover td {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.01);
+        }
+
+        .status-footer { margin-top: 25px; color: var(--text-dim); font-size: 0.8rem; }
+
+        #loader { padding: 60px; text-align: center; color: var(--accent); }
     </style>
 </head>
 <body>
 
-    <h1>Turniej Reprezentantów</h1>
+    <div class="header">
+        <h1>Turniej Reprezentantów</h1>
+        <p style="color: var(--accent); font-weight: 600; letter-spacing: 2px;">LIVE DASHBOARD</p>
+    </div>
     
-    <div class="table-container">
-        <div id="loading-overlay">Ładowanie wyników...</div>
-        <div id="error-display"></div>
-        
-        <table id="resultsTable" style="display:none;">
+    <div class="main-card">
+        <div id="loader">Ładowanie tabeli wyników...</div>
+        <table id="targetTable" style="display:none;">
             <thead>
-                <tr id="headerRow"></tr>
+                <tr id="headers"></tr>
             </thead>
-            <tbody id="tableBody"></tbody>
+            <tbody id="content"></tbody>
         </table>
     </div>
 
-    <div class="status-bar">
-        <span id="lastUpdate">Aktualizacja: --:--:--</span>
-        <span id="connectionStatus" style="color: var(--red);">Brak połączenia</span>
+    <div class="status-footer">
+        <span id="ts">Odświeżanie danych...</span>
     </div>
 
     <script>
-        // Dane Twojego arkusza
         const SHEET_ID = '1-Rry40TELMzcxD9n9AjLAXNs2lIGc0mFaeOURWbqfbk';
         const SHEET_NAME = 'Arkusz1'; 
 
-        async function fetchData() {
-            // URL korzystający z API wizualizacji Google, który zwraca JSON
+        async function updateDashboard() {
             const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
 
             try {
-                const response = await fetch(url);
-                const text = await response.text();
+                const res = await fetch(url);
+                const txt = await res.text();
+                const json = JSON.parse(txt.substring(txt.indexOf('{'), txt.lastIndexOf('}') + 1));
                 
-                // Oczyszczanie odpowiedzi (Google dodaje śmieci przed właściwym JSONem)
-                const startIdx = text.indexOf('{');
-                const endIdx = text.lastIndexOf('}') + 1;
-                const jsonData = JSON.parse(text.substring(startIdx, endIdx));
-                
-                renderTable(jsonData.table);
-                updateUI(true);
-            } catch (err) {
-                console.error("Błąd pobierania:", err);
-                updateUI(false);
-            }
-        }
+                const table = json.table;
+                const hRow = document.getElementById('headers');
+                const bRow = document.getElementById('content');
 
-        function renderTable(data) {
-            const headerRow = document.getElementById('headerRow');
-            const tableBody = document.getElementById('tableBody');
-            const loading = document.getElementById('loading-overlay');
-            const table = document.getElementById('resultsTable');
-            const error = document.getElementById('error-display');
+                hRow.innerHTML = '';
+                bRow.innerHTML = '';
 
-            headerRow.innerHTML = '';
-            tableBody.innerHTML = '';
-
-            // 1. Generuj Nagłówki
-            data.cols.forEach(col => {
-                if (col.label) {
-                    const th = document.createElement('th');
-                    th.textContent = col.label;
-                    headerRow.appendChild(th);
-                }
-            });
-
-            // 2. Generuj Wiersze
-            data.rows.forEach(row => {
-                const tr = document.createElement('tr');
-                row.c.forEach((cell, index) => {
-                    // Pomijaj kolumny bez nagłówka (opcjonalnie)
-                    if (data.cols[index].label) {
-                        const td = document.createElement('td');
-                        // cell.f to sformatowana wartość, cell.v to surowa
-                        td.textContent = cell ? (cell.f || cell.v || "") : "";
-                        tr.appendChild(td);
+                table.cols.forEach(c => {
+                    if(c.label) {
+                        const th = document.createElement('th');
+                        th.textContent = c.label;
+                        hRow.appendChild(th);
                     }
                 });
-                tableBody.appendChild(tr);
-            });
 
-            loading.style.display = 'none';
-            error.style.display = 'none';
-            table.style.display = 'table';
-        }
+                table.rows.forEach((r, rowIndex) => {
+                    const tr = document.createElement('tr');
+                    r.c.forEach((cell, i) => {
+                        if(table.cols[i].label) {
+                            const td = document.createElement('td');
+                            // Dodajemy ikonę medalową dla pierwszej trójki
+                            let value = cell ? (cell.f || cell.v || "") : "";
+                            if(i === 0) { // Tylko w pierwszej kolumnie
+                                if(rowIndex === 0) value = "🥇 " + value;
+                                if(rowIndex === 1) value = "🥈 " + value;
+                                if(rowIndex === 2) value = "🥉 " + value;
+                            }
+                            td.textContent = value;
+                            tr.appendChild(td);
+                        }
+                    });
+                    bRow.appendChild(tr);
+                });
 
-        function updateUI(success) {
-            const status = document.getElementById('connectionStatus');
-            const clock = document.getElementById('lastUpdate');
-            const now = new Date().toLocaleTimeString();
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('targetTable').style.display = 'table';
+                document.getElementById('ts').textContent = `Ostatnia synchronizacja: ${new Date().toLocaleTimeString()}`;
 
-            if (success) {
-                status.textContent = "Połączono online";
-                status.style.color = "var(--green)";
-                clock.textContent = `Ostatnia aktualizacja: ${now}`;
-            } else {
-                status.textContent = "Błąd synchronizacji";
-                status.style.color = "var(--red)";
-                document.getElementById('loading-overlay').style.display = 'none';
-                document.getElementById('error-display').style.display = 'block';
-                document.getElementById('error-display').textContent = "Nie udało się pobrać danych. Sprawdź czy arkusz jest opublikowany.";
+            } catch (e) {
+                console.error("Błąd bazy:", e);
             }
         }
 
-        // Uruchomienie i interwał (odświeżanie co 30 sekund)
-        fetchData();
-        setInterval(fetchData, 30000);
+        updateDashboard();
+        setInterval(updateDashboard, 15000);
     </script>
 </body>
 </html>
