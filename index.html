@@ -3,33 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tournament Pro | Dark Green Edition</title>
+    
+    <title>Kwalifikacje do Turnieju Reprezentantów | Live</title>
+    <meta name="description" content="3 Turnieje, Jeden Ranking, 3 Bilety. Śledź wyniki na żywo!">
+    <meta property="og:title" content="Kwalifikacje do Turnieju Reprezentantów">
+    <meta property="og:description" content="3 Turnieje, Jeden Ranking, 3 Bilety. Sprawdź aktualną klasyfikację!">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="link_do_twojego_obrazka.jpg"> 
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            /* KOLORYSTYKA */
-            --bg-dark: #050505;          /* Głęboka czerń */
-            --card-bg: #0d110f;          /* Ciemna zieleń (tło kart) */
-            --border-green: #1a2e23;     /* Ciemny zielony obramowania */
-            --accent-green: #22c55e;     /* Neonowa zieleń */
-            --text-white: #f8fafc;
-            --text-gray: #94a3b8;
+            /* KOLORYSTYKA ZGODNA Z GRAFIKĄ */
+            --bg-dark: #0a0a0a;          /* Głęboka czerń tła */
+            --card-bg: #111111;          /* Tekstura tła */
+            --gold-accent: #c5a059;      /* Złoto z logo/napisów */
+            --gold-dark: #8e6d31;        /* Ciemniejsze złoto do obramowań */
+            --text-white: #e5e7eb;
+            --text-gold: #d4af37;
             
-            /* PODIUM (Zieleń z odcieniem kruszcu) */
-            --gold-green: linear-gradient(135deg, #22c55e 0%, #166534 100%);
-            --silver-green: linear-gradient(135deg, #4ade80 0%, #14532d 100%);
-            --bronze-green: linear-gradient(135deg, #15803d 0%, #052e16 100%);
+            /* GRADIENTY PODIUM - EFEKT METALICZNY */
+            --gold-gradient: linear-gradient(135deg, #d4af37 0%, #8e6d31 100%);
+            --silver-gradient: linear-gradient(135deg, #adb5bd 0%, #495057 100%);
+            --bronze-gradient: linear-gradient(135deg, #a0522d 0%, #5d2906 100%);
         }
-
-        * { box-sizing: border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-white);
             margin: 0;
-            padding: 10px;
-            min-height: 100vh;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -37,155 +42,131 @@
 
         header {
             text-align: center;
-            width: 100%;
-            padding: 40px 10px;
+            padding: 30px 10px;
+            max-width: 800px;
         }
 
         h1 {
-            font-size: clamp(1.5rem, 8vw, 3rem); /* Responsywna czcionka */
-            font-weight: 900;
-            margin: 0;
+            font-size: clamp(1.2rem, 5vw, 2.2rem);
+            color: var(--text-gold);
             text-transform: uppercase;
-            letter-spacing: -2px;
-            color: var(--text-white);
-            border-bottom: 4px solid var(--accent-green);
-            display: inline-block;
-            padding-bottom: 5px;
+            letter-spacing: 2px;
+            margin: 0;
+            border-bottom: 2px solid var(--gold-accent);
+            padding-bottom: 10px;
         }
 
-        /* KONTENER GŁÓWNY */
+        .subtitle {
+            margin-top: 10px;
+            color: var(--gold-accent);
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
         .container {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1000px;
             background: var(--card-bg);
-            border: 1px solid var(--border-green);
-            border-radius: 16px;
-            padding: 10px;
-            box-shadow: 0 0 40px rgba(34, 197, 94, 0.05);
+            border: 1px solid var(--gold-dark);
+            border-radius: 12px;
+            padding: 5px;
+            box-shadow: 0 0 30px rgba(197, 160, 89, 0.1);
             overflow: hidden;
         }
 
-        /* TABELA RESPONSYWNA */
         .table-wrapper {
             width: 100%;
-            overflow-x: auto; /* Przewijanie na małych telefonach */
-            -webkit-overflow-scrolling: touch;
+            overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: separate;
-            border-spacing: 0 8px;
-            min-width: 500px; /* Zapobiega zbytniemu ściskaniu kolumn */
+            border-spacing: 0 6px;
         }
 
         th {
             padding: 15px;
-            color: var(--accent-green);
+            color: var(--text-gold);
             text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
             text-align: left;
-            border-bottom: 1px solid var(--border-green);
         }
 
         td {
-            padding: 16px;
-            background: rgba(255, 255, 255, 0.02);
-            font-size: 1rem;
-            border-top: 1px solid var(--border-green);
-            border-bottom: 1px solid var(--border-green);
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border-top: 1px solid rgba(197, 160, 89, 0.2);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
         }
 
-        /* Zaokrąglenia wierszy */
-        td:first-child { border-left: 1px solid var(--border-green); border-radius: 10px 0 0 10px; font-weight: 700; }
-        td:last-child { border-right: 1px solid var(--border-green); border-radius: 0 10px 10px 0; text-align: right; }
+        td:first-child { border-left: 1px solid var(--gold-dark); border-radius: 8px 0 0 8px; font-weight: 700; }
+        td:last-child { border-right: 1px solid var(--gold-dark); border-radius: 0 8px 8px 0; text-align: right; }
 
-        /* PODIUM */
-        tbody tr:nth-child(1) td { background: var(--gold-green); color: white; border: none; }
-        tbody tr:nth-child(2) td { background: var(--silver-green); color: white; border: none; }
-        tbody tr:nth-child(3) td { background: var(--bronze-green); color: white; border: none; }
+        /* PODIUM ZGODNE Z KLASYKĄ */
+        tbody tr:nth-child(1) td { background: var(--gold-gradient); color: #2a1e00; border: none; }
+        tbody tr:nth-child(2) td { background: var(--silver-gradient); color: #ffffff; border: none; }
+        tbody tr:nth-child(3) td { background: var(--bronze-gradient); color: #ffffff; border: none; }
 
-        /* HOVER DLA RESZTY */
+        /* HOVER */
         tbody tr:nth-child(n+4):hover td {
-            background: rgba(34, 197, 94, 0.1);
-            border-color: var(--accent-green);
+            background: rgba(197, 160, 89, 0.15);
             transition: 0.3s;
         }
 
-        /* STATUS I STOPKA */
         .footer {
             margin-top: 20px;
             width: 100%;
-            max-width: 1100px;
+            max-width: 1000px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: var(--text-gray);
-            padding: 10px;
+            font-size: 0.75rem;
+            color: #777;
         }
 
         .live-tag {
-            background: #15803d;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-weight: bold;
+            color: #d4af37;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
+            font-weight: bold;
         }
 
-        .pulse {
-            width: 8px;
-            height: 8px;
-            background: #4ade80;
+        .dot {
+            width: 7px;
+            height: 7px;
+            background: #d4af37;
             border-radius: 50%;
-            animation: pulse-animation 1.5s infinite;
+            animation: blink 1s infinite;
         }
 
-        @keyframes pulse-animation {
-            0% { transform: scale(0.9); opacity: 0.7; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(0.9); opacity: 0.7; }
-        }
-
-        #loader { padding: 50px; text-align: center; color: var(--accent-green); font-weight: bold; }
-
-        /* MEDIA QUERIES - DOSTOSOWANIE POD TELEFONY */
-        @media (max-width: 600px) {
-            body { padding: 5px; }
-            td, th { padding: 12px 8px; font-size: 0.85rem; }
-            .container { border-radius: 10px; }
-            .footer { flex-direction: column; gap: 15px; }
-        }
+        @keyframes blink { 0% { opacity: 0.2; } 50% { opacity: 1; } 100% { opacity: 0.2; } }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Turniej Reprezentantów</h1>
+        <h1>Kwalifikacje do Turnieju Reprezentantów</h1>
+        <div class="subtitle">3 TURNIEJE | JEDEN RANKING | 3 BILETY</div>
     </header>
     
     <div class="container">
-        <div id="loader">ŁĄCZENIE Z SERWEREM GOOGLE...</div>
         <div class="table-wrapper">
-            <table id="targetTable" style="display:none;">
+            <table id="targetTable">
                 <thead>
                     <tr id="headers"></tr>
                 </thead>
-                <tbody id="content"></tbody>
+                <tbody id="content">
+                    </tbody>
             </table>
         </div>
     </div>
 
     <div class="footer">
-        <div class="live-tag">
-            <div class="pulse"></div> LIVE
-        </div>
+        <div class="live-tag"><div class="dot"></div> LIVE RESULTS</div>
         <span id="ts">Inicjalizacja...</span>
-        <span id="conn">Status: Oczekiwanie</span>
     </div>
 
     <script>
@@ -194,7 +175,6 @@
 
         async function syncData() {
             const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
-
             try {
                 const res = await fetch(url);
                 const txt = await res.text();
@@ -207,7 +187,6 @@
                 hRow.innerHTML = '';
                 bRow.innerHTML = '';
 
-                // Budowa nagłówków
                 table.cols.forEach(c => {
                     if(c.label) {
                         const th = document.createElement('th');
@@ -216,7 +195,6 @@
                     }
                 });
 
-                // Budowa wierszy
                 table.rows.forEach((r, rowIndex) => {
                     const tr = document.createElement('tr');
                     r.c.forEach((cell, i) => {
@@ -224,11 +202,10 @@
                             const td = document.createElement('td');
                             let val = cell ? (cell.f || cell.v || "") : "";
                             
-                            // Dodatki medalowe dla podium
                             if(i === 0) {
-                                if(rowIndex === 0) val = "🏆 " + val;
-                                if(rowIndex === 1) val = "⭐ " + val;
-                                if(rowIndex === 2) val = "✨ " + val;
+                                if(rowIndex === 0) val = "🥇 " + val;
+                                if(rowIndex === 1) val = "🥈 " + val;
+                                if(rowIndex === 2) val = "🥉 " + val;
                             }
                             
                             td.textContent = val;
@@ -237,20 +214,12 @@
                     });
                     bRow.appendChild(tr);
                 });
-
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('targetTable').style.display = 'table';
                 document.getElementById('ts').textContent = `Aktualizacja: ${new Date().toLocaleTimeString()}`;
-                document.getElementById('conn').textContent = "Połączenie stabilne";
-
-            } catch (e) {
-                document.getElementById('conn').textContent = "Błąd synchronizacji";
-                console.error(e);
-            }
+            } catch (e) { console.error(e); }
         }
 
         syncData();
-        setInterval(syncData, 20000); // Odświeżanie co 20 sekund
+        setInterval(syncData, 30000);
     </script>
 </body>
 </html>
