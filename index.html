@@ -5,28 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Kwalifikacje do Turnieju Reprezentantów | Live</title>
-<meta property="og:title" content="Kwalifikacje do Turnieju Reprezentantów">
-<meta property="og:description" content="3 Turnieje, Jeden Ranking, 3 Bilety. Śledź wyniki na żywo!">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://abrzozowicz.github.io/Kwalifikacje-Do-Znina/">
-<meta property="og:image" content="https://raw.githubusercontent.com/abrzozowicz/Kwalifikacje-Do-Znina/main/Gemini_Generated_Image_75uum375uum375uu.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="848">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/abrzozowicz/Kwalifikacje-Do-Znina/main/Gemini_Generated_Image_75uum375uum375uu.png">
+    <meta name="description" content="3 Turnieje, Jeden Ranking, 3 Bilety. Śledź wyniki na żywo!">
+    
+    <meta property="og:title" content="Kwalifikacje do Turnieju Reprezentantów">
+    <meta property="og:description" content="3 Turnieje, Jeden Ranking, 3 Bilety. Sprawdź aktualną klasyfikację!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://abrzozowicz.github.io/Kwalifikacje-Do-Znina/">
+    
+    <meta property="og:image" content="https://raw.githubusercontent.com/abrzozowicz/Kwalifikacje-Do-Znina/main/Gemini_Generated_Image_75uum375uum375uu.png">
+    <meta property="og:image:secure_url" content="https://raw.githubusercontent.com/abrzozowicz/Kwalifikacje-Do-Znina/main/Gemini_Generated_Image_75uum375uum375uu.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="848">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/abrzozowicz/Kwalifikacje-Do-Znina/main/Gemini_Generated_Image_75uum375uum375uu.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* KOLORYSTYKA ZGODNA Z GRAFIKĄ */
-            --bg-dark: #0a0a0a;          /* Głęboka czerń tła */
-            --card-bg: #111111;          /* Tekstura tła */
-            --gold-accent: #c5a059;      /* Złoto z logo/napisów */
-            --gold-dark: #8e6d31;        /* Ciemniejsze złoto do obramowań */
+            /* KOLORYSTYKA ZGODNA Z GRAFIKĄ (Czerń i Złoto) */
+            --bg-dark: #0a0a0a;
+            --card-bg: #111111;
+            --gold-accent: #c5a059;
+            --gold-dark: #8e6d31;
             --text-white: #e5e7eb;
             --text-gold: #d4af37;
             
-            /* GRADIENTY PODIUM - EFEKT METALICZNY */
+            /* GRADIENTY PODIUM */
             --gold-gradient: linear-gradient(135deg, #d4af37 0%, #8e6d31 100%);
             --silver-gradient: linear-gradient(135deg, #adb5bd 0%, #495057 100%);
             --bronze-gradient: linear-gradient(135deg, #a0522d 0%, #5d2906 100%);
@@ -37,34 +44,37 @@
             background-color: var(--bg-dark);
             color: var(--text-white);
             margin: 0;
-            padding: 20px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
         header {
             text-align: center;
-            padding: 30px 10px;
-            max-width: 800px;
+            padding: 40px 10px;
+            max-width: 900px;
         }
 
         h1 {
-            font-size: clamp(1.2rem, 5vw, 2.2rem);
+            font-size: clamp(1.2rem, 6vw, 2.5rem);
             color: var(--text-gold);
             text-transform: uppercase;
             letter-spacing: 2px;
             margin: 0;
             border-bottom: 2px solid var(--gold-accent);
             padding-bottom: 10px;
+            line-height: 1.2;
         }
 
         .subtitle {
-            margin-top: 10px;
+            margin-top: 15px;
             color: var(--gold-accent);
             font-weight: 700;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
+            letter-spacing: 2px;
+            font-size: clamp(0.7rem, 3vw, 1rem);
+            text-transform: uppercase;
         }
 
         .container {
@@ -74,78 +84,88 @@
             border: 1px solid var(--gold-dark);
             border-radius: 12px;
             padding: 5px;
-            box-shadow: 0 0 30px rgba(197, 160, 89, 0.1);
+            box-shadow: 0 0 40px rgba(197, 160, 89, 0.1);
             overflow: hidden;
+            margin-bottom: 20px;
         }
 
         .table-wrapper {
             width: 100%;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         table {
             width: 100%;
             border-collapse: separate;
-            border-spacing: 0 6px;
+            border-spacing: 0 8px;
+            min-width: 600px;
         }
 
         th {
             padding: 15px;
             color: var(--text-gold);
             text-transform: uppercase;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             letter-spacing: 1.5px;
             text-align: left;
-        }
-
-        td {
-            padding: 14px;
-            background: rgba(255, 255, 255, 0.03);
-            border-top: 1px solid rgba(197, 160, 89, 0.2);
             border-bottom: 1px solid rgba(197, 160, 89, 0.2);
         }
 
-        td:first-child { border-left: 1px solid var(--gold-dark); border-radius: 8px 0 0 8px; font-weight: 700; }
-        td:last-child { border-right: 1px solid var(--gold-dark); border-radius: 0 8px 8px 0; text-align: right; }
+        td {
+            padding: 16px 15px;
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(197, 160, 89, 0.1);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+            font-size: 1rem;
+        }
 
-        /* PODIUM ZGODNE Z KLASYKĄ */
-        tbody tr:nth-child(1) td { background: var(--gold-gradient); color: #2a1e00; border: none; }
-        tbody tr:nth-child(2) td { background: var(--silver-gradient); color: #ffffff; border: none; }
-        tbody tr:nth-child(3) td { background: var(--bronze-gradient); color: #ffffff; border: none; }
+        td:first-child { border-left: 1px solid rgba(197, 160, 89, 0.2); border-radius: 8px 0 0 8px; font-weight: 700; }
+        td:last-child { border-right: 1px solid rgba(197, 160, 89, 0.2); border-radius: 0 8px 8px 0; text-align: right; }
 
-        /* HOVER */
+        /* PODIUM */
+        tbody tr:nth-child(1) td { background: var(--gold-gradient); color: #2a1e00; border: none; font-weight: 900; }
+        tbody tr:nth-child(2) td { background: var(--silver-gradient); color: #ffffff; border: none; font-weight: 700; }
+        tbody tr:nth-child(3) td { background: var(--bronze-gradient); color: #ffffff; border: none; font-weight: 700; }
+
+        /* HOVER DLA POZOSTAŁYCH */
         tbody tr:nth-child(n+4):hover td {
-            background: rgba(197, 160, 89, 0.15);
+            background: rgba(197, 160, 89, 0.1);
             transition: 0.3s;
         }
 
         .footer {
-            margin-top: 20px;
             width: 100%;
             max-width: 1000px;
             display: flex;
             justify-content: space-between;
-            font-size: 0.75rem;
-            color: #777;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #666;
+            padding: 10px;
         }
 
         .live-tag {
-            color: #d4af37;
+            color: var(--text-gold);
             display: flex;
             align-items: center;
-            gap: 5px;
-            font-weight: bold;
+            gap: 8px;
+            font-weight: 800;
+            text-transform: uppercase;
         }
 
         .dot {
-            width: 7px;
-            height: 7px;
-            background: #d4af37;
+            width: 8px;
+            height: 8px;
+            background: var(--text-gold);
             border-radius: 50%;
-            animation: blink 1s infinite;
+            animation: blink 1.2s infinite;
+            box-shadow: 0 0 10px var(--text-gold);
         }
 
-        @keyframes blink { 0% { opacity: 0.2; } 50% { opacity: 1; } 100% { opacity: 0.2; } }
+        @keyframes blink { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
+
+        #loader { padding: 40px; text-align: center; color: var(--gold-accent); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -156,20 +176,20 @@
     </header>
     
     <div class="container">
+        <div id="loader">POBIERANIE WYNIKÓW LIVE...</div>
         <div class="table-wrapper">
-            <table id="targetTable">
+            <table id="targetTable" style="display:none;">
                 <thead>
                     <tr id="headers"></tr>
                 </thead>
-                <tbody id="content">
-                    </tbody>
+                <tbody id="content"></tbody>
             </table>
         </div>
     </div>
 
     <div class="footer">
         <div class="live-tag"><div class="dot"></div> LIVE RESULTS</div>
-        <span id="ts">Inicjalizacja...</span>
+        <span id="ts">Inicjalizacja systemu...</span>
     </div>
 
     <script>
@@ -178,6 +198,7 @@
 
         async function syncData() {
             const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
+            
             try {
                 const res = await fetch(url);
                 const txt = await res.text();
@@ -190,6 +211,7 @@
                 hRow.innerHTML = '';
                 bRow.innerHTML = '';
 
+                // Nagłówki
                 table.cols.forEach(c => {
                     if(c.label) {
                         const th = document.createElement('th');
@@ -198,6 +220,7 @@
                     }
                 });
 
+                // Wiersze
                 table.rows.forEach((r, rowIndex) => {
                     const tr = document.createElement('tr');
                     r.c.forEach((cell, i) => {
@@ -205,10 +228,11 @@
                             const td = document.createElement('td');
                             let val = cell ? (cell.f || cell.v || "") : "";
                             
+                            // Ikony podium dla pierwszej kolumny
                             if(i === 0) {
                                 if(rowIndex === 0) val = "🥇 " + val;
-                                if(rowIndex === 1) val = "🥈 " + val;
-                                if(rowIndex === 2) val = "🥉 " + val;
+                                else if(rowIndex === 1) val = "🥈 " + val;
+                                else if(rowIndex === 2) val = "🥉 " + val;
                             }
                             
                             td.textContent = val;
@@ -217,12 +241,19 @@
                     });
                     bRow.appendChild(tr);
                 });
-                document.getElementById('ts').textContent = `Aktualizacja: ${new Date().toLocaleTimeString()}`;
-            } catch (e) { console.error(e); }
+
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('targetTable').style.display = 'table';
+                document.getElementById('ts').textContent = `Ostatnia aktualizacja: ${new Date().toLocaleTimeString()}`;
+
+            } catch (e) { 
+                console.error("Błąd połączenia z arkuszem:", e);
+                document.getElementById('loader').textContent = "BŁĄD ŁADOWANIA DANYCH";
+            }
         }
 
         syncData();
-        setInterval(syncData, 30000);
+        setInterval(syncData, 30000); // Automatyczne odświeżanie co 30 sekund
     </script>
 </body>
 </html>
