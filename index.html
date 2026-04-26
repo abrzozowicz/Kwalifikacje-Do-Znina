@@ -3,116 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tournament Dashboard | Podium Edition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Tournament Pro | Dark Green Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-gradient: radial-gradient(circle at top left, #1e293b, #0f172a);
-            --glass-bg: rgba(30, 41, 59, 0.7);
-            --accent: #38bdf8;
-            --text-bright: #ffffff;
-            --text-dim: #94a3b8;
-            --success: #10b981;
+            /* KOLORYSTYKA */
+            --bg-dark: #050505;          /* Głęboka czerń */
+            --card-bg: #0d110f;          /* Ciemna zieleń (tło kart) */
+            --border-green: #1a2e23;     /* Ciemny zielony obramowania */
+            --accent-green: #22c55e;     /* Neonowa zieleń */
+            --text-white: #f8fafc;
+            --text-gray: #94a3b8;
             
-            /* Kolory Podium */
-            --gold: linear-gradient(90deg, #f59e0b, #fbbf24);
-            --silver: linear-gradient(90deg, #94a3b8, #cbd5e1);
-            --bronze: linear-gradient(90deg, #b45309, #d97706);
+            /* PODIUM (Zieleń z odcieniem kruszcu) */
+            --gold-green: linear-gradient(135deg, #22c55e 0%, #166534 100%);
+            --silver-green: linear-gradient(135deg, #4ade80 0%, #14532d 100%);
+            --bronze-green: linear-gradient(135deg, #15803d 0%, #052e16 100%);
         }
+
+        * { box-sizing: border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--bg-gradient);
-            color: var(--text-bright);
+            background-color: var(--bg-dark);
+            color: var(--text-white);
             margin: 0;
-            padding: 20px;
+            padding: 10px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .header { text-align: center; margin-bottom: 40px; }
-        h1 { font-size: 2.5rem; font-weight: 800; margin: 0; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
-
-        .main-card {
+        header {
+            text-align: center;
             width: 100%;
-            max-width: 1000px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            border-radius: 24px;
-            padding: 20px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            padding: 40px 10px;
         }
 
-        table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
-        th { padding: 15px 20px; color: var(--text-dim); font-size: 0.75rem; text-transform: uppercase; text-align: left; }
-        td { padding: 18px 20px; background: rgba(255, 255, 255, 0.03); font-size: 1.1rem; transition: transform 0.2s; }
-
-        /* ZAOKRĄGLENIA WIERSZY */
-        td:first-child { border-radius: 12px 0 0 12px; font-weight: 800; }
-        td:last-child { border-radius: 0 12px 12px 0; text-align: right; }
-
-        /* --- PODIUM --- */
-        
-        /* 1. MIEJSCE - ZŁOTO */
-        tbody tr:nth-child(1) td {
-            background: var(--gold);
-            color: #451a03; /* Ciemny napis dla kontrastu */
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+        h1 {
+            font-size: clamp(1.5rem, 8vw, 3rem); /* Responsywna czcionka */
+            font-weight: 900;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            color: var(--text-white);
+            border-bottom: 4px solid var(--accent-green);
+            display: inline-block;
+            padding-bottom: 5px;
         }
 
-        /* 2. MIEJSCE - SREBRO */
-        tbody tr:nth-child(2) td {
-            background: var(--silver);
-            color: #1e293b;
-            box-shadow: 0 0 15px rgba(148, 163, 184, 0.2);
+        /* KONTENER GŁÓWNY */
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-green);
+            border-radius: 16px;
+            padding: 10px;
+            box-shadow: 0 0 40px rgba(34, 197, 94, 0.05);
+            overflow: hidden;
         }
 
-        /* 3. MIEJSCE - BRĄZ */
-        tbody tr:nth-child(3) td {
-            background: var(--bronze);
-            color: #fff;
-            box-shadow: 0 0 15px rgba(180, 83, 9, 0.2);
+        /* TABELA RESPONSYWNA */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto; /* Przewijanie na małych telefonach */
+            -webkit-overflow-scrolling: touch;
         }
 
-        /* Efekt hover dla reszty stawki */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            min-width: 500px; /* Zapobiega zbytniemu ściskaniu kolumn */
+        }
+
+        th {
+            padding: 15px;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-green);
+        }
+
+        td {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            font-size: 1rem;
+            border-top: 1px solid var(--border-green);
+            border-bottom: 1px solid var(--border-green);
+        }
+
+        /* Zaokrąglenia wierszy */
+        td:first-child { border-left: 1px solid var(--border-green); border-radius: 10px 0 0 10px; font-weight: 700; }
+        td:last-child { border-right: 1px solid var(--border-green); border-radius: 0 10px 10px 0; text-align: right; }
+
+        /* PODIUM */
+        tbody tr:nth-child(1) td { background: var(--gold-green); color: white; border: none; }
+        tbody tr:nth-child(2) td { background: var(--silver-green); color: white; border: none; }
+        tbody tr:nth-child(3) td { background: var(--bronze-green); color: white; border: none; }
+
+        /* HOVER DLA RESZTY */
         tbody tr:nth-child(n+4):hover td {
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.01);
+            background: rgba(34, 197, 94, 0.1);
+            border-color: var(--accent-green);
+            transition: 0.3s;
         }
 
-        .status-footer { margin-top: 25px; color: var(--text-dim); font-size: 0.8rem; }
+        /* STATUS I STOPKA */
+        .footer {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            padding: 10px;
+        }
 
-        #loader { padding: 60px; text-align: center; color: var(--accent); }
+        .live-tag {
+            background: #15803d;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pulse {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse-animation 1.5s infinite;
+        }
+
+        @keyframes pulse-animation {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.7; }
+        }
+
+        #loader { padding: 50px; text-align: center; color: var(--accent-green); font-weight: bold; }
+
+        /* MEDIA QUERIES - DOSTOSOWANIE POD TELEFONY */
+        @media (max-width: 600px) {
+            body { padding: 5px; }
+            td, th { padding: 12px 8px; font-size: 0.85rem; }
+            .container { border-radius: 10px; }
+            .footer { flex-direction: column; gap: 15px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="header">
+    <header>
         <h1>Turniej Reprezentantów</h1>
-        <p style="color: var(--accent); font-weight: 600; letter-spacing: 2px;">LIVE DASHBOARD</p>
-    </div>
+    </header>
     
-    <div class="main-card">
-        <div id="loader">Ładowanie tabeli wyników...</div>
-        <table id="targetTable" style="display:none;">
-            <thead>
-                <tr id="headers"></tr>
-            </thead>
-            <tbody id="content"></tbody>
-        </table>
+    <div class="container">
+        <div id="loader">ŁĄCZENIE Z SERWEREM GOOGLE...</div>
+        <div class="table-wrapper">
+            <table id="targetTable" style="display:none;">
+                <thead>
+                    <tr id="headers"></tr>
+                </thead>
+                <tbody id="content"></tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="status-footer">
-        <span id="ts">Odświeżanie danych...</span>
+    <div class="footer">
+        <div class="live-tag">
+            <div class="pulse"></div> LIVE
+        </div>
+        <span id="ts">Inicjalizacja...</span>
+        <span id="conn">Status: Oczekiwanie</span>
     </div>
 
     <script>
         const SHEET_ID = '1-Rry40TELMzcxD9n9AjLAXNs2lIGc0mFaeOURWbqfbk';
         const SHEET_NAME = 'Arkusz1'; 
 
-        async function updateDashboard() {
+        async function syncData() {
             const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
 
             try {
@@ -127,6 +207,7 @@
                 hRow.innerHTML = '';
                 bRow.innerHTML = '';
 
+                // Budowa nagłówków
                 table.cols.forEach(c => {
                     if(c.label) {
                         const th = document.createElement('th');
@@ -135,19 +216,22 @@
                     }
                 });
 
+                // Budowa wierszy
                 table.rows.forEach((r, rowIndex) => {
                     const tr = document.createElement('tr');
                     r.c.forEach((cell, i) => {
                         if(table.cols[i].label) {
                             const td = document.createElement('td');
-                            // Dodajemy ikonę medalową dla pierwszej trójki
-                            let value = cell ? (cell.f || cell.v || "") : "";
-                            if(i === 0) { // Tylko w pierwszej kolumnie
-                                if(rowIndex === 0) value = "🥇 " + value;
-                                if(rowIndex === 1) value = "🥈 " + value;
-                                if(rowIndex === 2) value = "🥉 " + value;
+                            let val = cell ? (cell.f || cell.v || "") : "";
+                            
+                            // Dodatki medalowe dla podium
+                            if(i === 0) {
+                                if(rowIndex === 0) val = "🏆 " + val;
+                                if(rowIndex === 1) val = "⭐ " + val;
+                                if(rowIndex === 2) val = "✨ " + val;
                             }
-                            td.textContent = value;
+                            
+                            td.textContent = val;
                             tr.appendChild(td);
                         }
                     });
@@ -156,15 +240,17 @@
 
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('targetTable').style.display = 'table';
-                document.getElementById('ts').textContent = `Ostatnia synchronizacja: ${new Date().toLocaleTimeString()}`;
+                document.getElementById('ts').textContent = `Aktualizacja: ${new Date().toLocaleTimeString()}`;
+                document.getElementById('conn').textContent = "Połączenie stabilne";
 
             } catch (e) {
-                console.error("Błąd bazy:", e);
+                document.getElementById('conn').textContent = "Błąd synchronizacji";
+                console.error(e);
             }
         }
 
-        updateDashboard();
-        setInterval(updateDashboard, 15000);
+        syncData();
+        setInterval(syncData, 20000); // Odświeżanie co 20 sekund
     </script>
 </body>
 </html>
